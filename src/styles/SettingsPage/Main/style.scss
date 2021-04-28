@@ -1,0 +1,113 @@
+$mainGray: #e5e5e5;
+$menuNum: #6264a7;
+
+.settings__container {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 8px 8px 10px 0px grey;
+    .settings__menu-container {
+
+        padding: 10px;
+        flex: 1;
+
+        .settings__menu-item {
+
+            .settings__menu-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .settings__menu-ball {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50px;
+                    background-color: $menuNum;
+                    margin-right: 15px;
+                }
+                
+                h4 {
+                    margin: 5px 0px 5px 0px;
+                }
+            }
+
+            .settings__menu-body {
+                list-style-type: none;
+                li {
+                    cursor: pointer;
+                    transition: 300ms;
+                    padding: 5px;
+                    border-radius: 5px;
+                    span {
+                        margin: 0px 5px 0px 5px;
+                    }
+                    &:hover {
+                        background-color: $mainGray;
+                        transition: 300ms;
+                    }
+                }
+            }
+        }
+    }
+
+    .settings__menu-content {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 30px 10px 30px;
+        flex: 4;
+        .header {
+            margin: 10px 0px 10px 0px;
+            
+            &_descr {
+                font-size: 14px;
+            }
+        }
+
+        .settings__entry-container {
+            margin: 20px 0px 20px 0px;
+            .settings__entry-search {
+                width: 300px;
+                input {
+                    width: 100%;
+                }
+            }
+        }
+
+        .settings__content-tree {
+            span, a{
+                padding: 10px 0px 10px 0px;
+            }
+        }
+
+        .settings__action-btns {
+            // margin-top: 15vh;
+            margin-top: 20vh;
+            margin-bottom: 20px;
+        }   
+    }
+
+    .divider {
+        &_vertical {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            width: 2px;
+            background-color: $mainGray;
+        }
+        &_horizontal {
+            margin-left: 5px;
+            margin-bottom: 5px;
+            height: 2px;
+            background-color: $mainGray;
+        }
+    }
+
+    h2 {
+        margin: 10px 0px 10px 0px;
+    }
+}

@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import { FunctionComponent, useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import MainNav from './components/MainNavigation/Index';
+
+import DashboardPage from './containers/DashboardPage/Index';
+import SettingsPage from './containers/SettingsPage/Index';
 import './App.css';
 
-function App() {
+const App: FunctionComponent = () => {
+  const [mainNavIndex, setMainNavIndex] = useState(0);
+
+  const renderMainContent = () => {
+    switch (mainNavIndex) {
+      case 0:
+        return <DashboardPage />;
+      case 1:
+        return <SettingsPage />;
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main__container">
+        <MainNav mainNavIndex={mainNavIndex} setMainNavIndex={setMainNavIndex} />
+        {renderMainContent()}
     </div>
   );
 }
