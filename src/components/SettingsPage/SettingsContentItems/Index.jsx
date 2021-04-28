@@ -73,7 +73,6 @@ export default function Index() {
       id: `navigation-item-${treeItems.length + 1}`,
       title: newEntry
     }
-
     setTreeItems(prevState => [...prevState, newEntryItem]);
   }
 
@@ -85,6 +84,8 @@ export default function Index() {
         <Popup
           content={<Input id='new-entry-name' placeholder="Type Entry Name" onChange={handleChange} icon={newEntry.length >= 3 ? <AcceptIcon onClick={handleEntrySubmit} />: null} />}
           trigger={<Button content="+ Add Entry" primary />}
+          autoFocus
+          onOpenChange={() => setNewEntry("")}
         />
         <Input
           className="settings__entry-search"

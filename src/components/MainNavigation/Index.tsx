@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, tabListBehavior, Layout, Flex, Button, SplitButton, Text } from '@fluentui/react-northstar';
-import { MoreIcon, InfoIcon, VideoCameraEmphasisIcon } from '@fluentui/react-northstar';
+import { MoreIcon, InfoIcon, VideoCameraEmphasisIcon, AddIcon } from '@fluentui/react-northstar';
 import MainNav from './Index.model';
 
 import IntranetIco from '../../assets/icons/intranet-logo.png';
@@ -32,7 +32,9 @@ const Index = ({ mainNavIndex, setMainNavIndex }: MainNav) => {
     primary
     accessibility={tabListBehavior}
     aria-label="Main Navigatio"
-  /></>);
+  />
+  <Button icon={<AddIcon />} text iconOnly title="More" />
+  </>);
 
   let NavEnd = (
     <Flex gap="gap.smaller" className='nav-end__container'>
