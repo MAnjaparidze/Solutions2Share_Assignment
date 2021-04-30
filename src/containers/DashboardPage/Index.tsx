@@ -2,25 +2,28 @@ import { useState, useEffect } from 'react';
 import { Menu, tabListBehavior, Button, MenuIcon, MoreIcon, Flex } from '@fluentui/react-northstar';
 import '../../styles/DashboardPage/Main/Styles.css';
 
+import DashPageModel from './Index.model';
+
 import MenuItem1 from '../../components/DashboardPage/MenuItems/MenuItem1/Index';
+import MenuItem2 from '../../components/DashboardPage/MenuItems/MenuItem2/Index';
+import MenuItem3 from '../../components/DashboardPage/MenuItems/MenuItem3/Index';
+import MenuItem4 from '../../components/DashboardPage/MenuItems/MenuItem4/Index';
 
 
-export default function Index() {
+export default function Index({ isItemsSet }: DashPageModel) {
     const [dashActiveNav, setDashActiveNav] = useState(0);
     const [dashNavItems, setDashNavItems] = useState([]);
 
     useEffect(() => {
         handleGetDashNavItems();
-    }, []);
+    }, [isItemsSet]);
 
     const handleGetDashNavItems = () => {
         let navItems = JSON.parse(localStorage.getItem('navItems') || "[]");
         navItems.map((item, index) => {
-            console.log(index);
             item['onMouseEnter'] = () => setDashActiveNav(index);
             item['content'] = item.title;
             item['key'] = item.id;
-            console.log(item);
         });
         setDashNavItems(navItems);
     }
@@ -29,6 +32,12 @@ export default function Index() {
         switch (dashActiveNav) {
             case 0:
                 return <MenuItem1 />
+            case 1:
+                return <MenuItem2 />
+            case 2:
+                return <MenuItem3 />
+            case 3:
+                return <MenuItem4 />
             default:
                 break;
         }

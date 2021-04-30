@@ -12,6 +12,11 @@ interface InputChange {
   target: { value: string }
 }
 
+interface ITreeItems {
+  id: string,
+  title: string
+}
+
 const titleRenderer = (Component: any, { content, expanded, open, hasSubtree, ...restProps }: any) => (
   <Component expanded={expanded} hasSubtree={hasSubtree} {...restProps}>
     {expanded ? <TriangleDownIcon /> : <TriangleEndIcon />}
@@ -20,7 +25,7 @@ const titleRenderer = (Component: any, { content, expanded, open, hasSubtree, ..
 );
 
 export default function Index() {
-  const [treeItems, setTreeItems] = useState([]);
+  const [treeItems, setTreeItems] = useState<ITreeItems[]>([]);
   const [newEntry, setNewEntry] = useState("");
 
   useEffect(() => {
@@ -43,15 +48,15 @@ export default function Index() {
   }
 
   const handleEntrySubmit = () => {
-    let newEntryItem = {
+    let newEntryItem: any = {
       id: `navigation-item-${treeItems.length + 1}`,
       title: newEntry
     }
-    let navItems = JSON.parse(localStorage.getItem('navItems') || "[]");
-    navItems.push(newEntryItem);
-    console.log(navItems);
-    localStorage.setItem('navItems', JSON.stringify(navItems));
-    handleGetNavItems();
+    setTreeItems(prevState => [...prevState, newEntryItem]);
+  }
+
+  const handleSave = () => {
+    localStorage.setItem('navItems', JSON.stringify(treeItems));
   }
 
   return (
@@ -80,7 +85,7 @@ export default function Index() {
       />
       <Flex className='settings__action-btns' gap="gap.smaller" hAlign='end'>
         <Button content="Discard" secondary />
-        <Button content="Save" primary />
+        <Button content="Save" onClick={handleSave} primary />
       </Flex>
     </>
   )

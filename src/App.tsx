@@ -50,20 +50,29 @@ const items = [
 
 const App: FunctionComponent = () => {
   const [mainNavIndex, setMainNavIndex] = useState(0);
+  const [isItemsSet, setItemsSset] = useState(false);
 
   useEffect(() => {
     handleNavItemUpload();
   }, [])
 
-  
+
   const handleNavItemUpload = () => {
-    if(localStorage.getItem('navItems') === null) localStorage.setItem('navItems', JSON.stringify(items));
+    const asyncLocalStorage = {
+      setItem: function (key, value) {
+        return Promise.resolve().then(function () {
+          localStorage.setItem(key, value);
+        });
+      }
+    }
+
+    if (localStorage.getItem('navItems') === null) asyncLocalStorage.setItem('navItems', JSON.stringify(items)).then(() => { setItemsSset(true) });
   }
 
   const renderMainContent = () => {
     switch (mainNavIndex) {
       case 0:
-        return <DashboardPage />;
+        return <DashboardPage isItemsSet={isItemsSet} />;
       case 1:
         return <SettingsPage />;
     }

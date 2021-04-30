@@ -38,6 +38,7 @@ export default function Index() {
             onClick: () => setActiveSubMenu(2)
         },
     ];
+    
     const administrationItems = [
         {
             key: 'licensing',
