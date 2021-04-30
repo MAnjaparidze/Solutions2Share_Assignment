@@ -1,4 +1,3 @@
-import React from 'react';
 import { Menu, tabListBehavior, Layout, Flex, Button, SplitButton, Text } from '@fluentui/react-northstar';
 import { MoreIcon, InfoIcon, VideoCameraEmphasisIcon, AddIcon } from '@fluentui/react-northstar';
 import MainNav from './Index.model';

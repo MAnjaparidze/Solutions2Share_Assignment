@@ -1,35 +1,29 @@
-import { useState } from 'react';
-import { Menu, tabListBehavior, MenuIcon, MoreIcon} from '@fluentui/react-northstar';
+import { useState, useEffect } from 'react';
+import { Menu, tabListBehavior, Button, MenuIcon, MoreIcon, Flex } from '@fluentui/react-northstar';
 import '../../styles/DashboardPage/Main/Styles.css';
+
 import MenuItem1 from '../../components/DashboardPage/MenuItems/MenuItem1/Index';
 
 
 export default function Index() {
     const [dashActiveNav, setDashActiveNav] = useState(0);
+    const [dashNavItems, setDashNavItems] = useState([]);
 
-    const dashNavItems = [
-        {
-            key: 'dashMenuIcon', content: <MenuIcon />,
-        },
-        {
-            key: 'menuItem1', tabIndex: 0, content: 'Menu Item 1', onClick: () => setDashActiveNav(0), styles: { boxShadow: 'none' }
-        },
-        {
-            key: 'menuItem2', tabIndex: 0, content: 'Menu Item 2', onClick: () => setDashActiveNav(1),
-        },
-        {
-            key: 'menuItem3', tabIndex: 0, content: 'Menu Item 3', onClick: () => setDashActiveNav(2),
-        },
-        {
-            key: 'menuItem4', tabIndex: 0, content: 'Menu Item 4', onClick: () => setDashActiveNav(3),
-        },
-        {
-            key: 'menuItem5', tabIndex: 0, content: 'Menu Item 5', onClick: () => setDashActiveNav(4),
-        },
-        {
-            key: 'dashMoreIcon', content: <MoreIcon />
-        }
-    ]
+    useEffect(() => {
+        handleGetDashNavItems();
+    }, []);
+
+    const handleGetDashNavItems = () => {
+        let navItems = JSON.parse(localStorage.getItem('navItems'));
+        navItems.map((item, index) => {
+            console.log(index);
+            item['onClick'] = () => setDashActiveNav(index);
+            item['content'] = item.title;
+            item['key'] = item.id;
+            console.log(item);
+        });
+        setDashNavItems(navItems);
+    }
 
     const renderSubMenu = () => {
         switch (dashActiveNav) {
@@ -42,13 +36,16 @@ export default function Index() {
 
     return (
         <div className='dashboard__container'>
-            <Menu
-                defaultActiveIndex={1}
-                items={dashNavItems}
-                className="dashboard__nav-container"
-                accessibility={tabListBehavior}
-                aria-label="Dashboard Navigation"
-            />
+            <Flex gap='gap.small' vAlign='center' className='dashboard__nav-container' style={{ borderBottom: '1px solid #f5f5f5' }}>
+                <Button icon={<MenuIcon />} iconOnly title="Menu" />
+                <Menu
+                    defaultActiveIndex={0}
+                    items={dashNavItems}
+                    accessibility={tabListBehavior}
+                    aria-label="Dashboard Navigation"
+                />
+                <Button icon={<MoreIcon />} iconOnly title="More" />
+            </Flex>
             {renderSubMenu()}
         </div>
     )
