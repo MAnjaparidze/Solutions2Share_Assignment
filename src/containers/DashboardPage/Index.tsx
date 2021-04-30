@@ -17,7 +17,7 @@ export default function Index() {
         let navItems = JSON.parse(localStorage.getItem('navItems') || "[]");
         navItems.map((item, index) => {
             console.log(index);
-            item['onClick'] = () => setDashActiveNav(index);
+            item['onMouseEnter'] = () => setDashActiveNav(index);
             item['content'] = item.title;
             item['key'] = item.id;
             console.log(item);
@@ -40,6 +40,7 @@ export default function Index() {
                 <Button icon={<MenuIcon />} iconOnly title="Menu" />
                 <Menu
                     defaultActiveIndex={0}
+                    activeIndex={dashActiveNav}
                     items={dashNavItems}
                     accessibility={tabListBehavior}
                     aria-label="Dashboard Navigation"
