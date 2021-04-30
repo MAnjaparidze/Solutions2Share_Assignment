@@ -2,7 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Header, Flex, Input, Tree, Button, Popup } from '@fluentui/react-northstar';
 import { SearchIcon, TriangleDownIcon, TriangleEndIcon, AcceptIcon } from '@fluentui/react-icons-northstar'
 
-const titleRenderer = (Component, { content, expanded, open, hasSubtree, ...restProps }) => (
+interface NavItems {
+  type: Object,
+  title: string
+}
+
+interface InputChange {
+  type: React.SyntheticEvent,
+  target: { value: string }
+}
+
+const titleRenderer = (Component: any, { content, expanded, open, hasSubtree, ...restProps }: any) => (
   <Component expanded={expanded} hasSubtree={hasSubtree} {...restProps}>
     {expanded ? <TriangleDownIcon /> : <TriangleEndIcon />}
     {content}
@@ -17,18 +27,18 @@ export default function Index() {
     handleGetNavItems();
   }, [])
 
-  const handleChange = (e) => {
+  const handleChange = (e: InputChange) => {
     setNewEntry(e.target.value);
   }
 
-  const handleFilter = (e) => {
-    let navItems = JSON.parse(localStorage.getItem('navItems'));
-    let filteredArr = navItems.filter(item => item.title.includes(e.target.value));
+  const handleFilter = (e: InputChange) => {
+    let navItems = JSON.parse(localStorage.getItem('navItems') || "[]");
+    let filteredArr = navItems.filter((item: NavItems) => item.title.includes(e.target.value));
     setTreeItems(filteredArr);
   }
 
   const handleGetNavItems = () => {
-    let navItems = JSON.parse(localStorage.getItem('navItems'));
+    let navItems = JSON.parse(localStorage.getItem('navItems') || "[]");
     setTreeItems(navItems);
   }
 
@@ -37,12 +47,11 @@ export default function Index() {
       id: `navigation-item-${treeItems.length + 1}`,
       title: newEntry
     }
-    let navItems = JSON.parse(localStorage.getItem('navItems'));
+    let navItems = JSON.parse(localStorage.getItem('navItems') || "[]");
     navItems.push(newEntryItem);
     console.log(navItems);
     localStorage.setItem('navItems', JSON.stringify(navItems));
     handleGetNavItems();
-    // setTreeItems(prevState => [...prevState, newEntryItem]);
   }
 
   return (
@@ -51,7 +60,7 @@ export default function Index() {
       <Header className='header' as='h4' content='Add Navigation Entries' description={{ className: 'header_descr', as: 'span', content: "Here's an example of how a section can be used to group inputs" }} />
       <Flex gap="gap.smaller" className='settings__entry-container'>
         <Popup
-          content={<Input id='new-entry-name' placeholder="Type Entry Name" onChange={handleChange} icon={newEntry.length >= 3 ? <AcceptIcon onClick={handleEntrySubmit} /> : null} />}
+          content={<Input id='new-entry-name' placeholder="Type Entry Name" onChange={(e: any) => handleChange(e)} icon={newEntry.length >= 3 ? <AcceptIcon onClick={handleEntrySubmit} /> : null} />}
           trigger={<Button content="+ Add Entry" primary />}
           autoFocus
           onOpenChange={() => setNewEntry("")}
@@ -59,7 +68,7 @@ export default function Index() {
         <Input
           className="settings__entry-search"
           icon={<SearchIcon />}
-          onChange={handleFilter}
+          onChange={(e: any) => handleFilter(e)}
           placeholder="Search for a navigation entry..."
         />
       </Flex>

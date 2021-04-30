@@ -162,10 +162,12 @@ const styleConfig = {
 
 export default function Index() {
     return (
-        <ReactMegaMenu
-            tolerance={100}
-            data={subMenuItems}
-            styleConfig={styleConfig}
-        />
+        <div>
+            <ReactMegaMenu
+                tolerance={100}
+                data={subMenuItems}
+                styleConfig={styleConfig}
+            />
+        </div>
     )
 }

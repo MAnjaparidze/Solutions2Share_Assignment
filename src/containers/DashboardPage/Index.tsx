@@ -14,7 +14,7 @@ export default function Index() {
     }, []);
 
     const handleGetDashNavItems = () => {
-        let navItems = JSON.parse(localStorage.getItem('navItems'));
+        let navItems = JSON.parse(localStorage.getItem('navItems') || "[]");
         navItems.map((item, index) => {
             console.log(index);
             item['onClick'] = () => setDashActiveNav(index);
